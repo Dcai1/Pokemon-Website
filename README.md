@@ -1,36 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## About This Website
 
-## Getting Started
+This is a simple Pokémon site that displays various Pokémons from different regions in the official Pokémon games.
 
-First, run the development server:
+I started it alone as a passion project.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+It calls and uses an API to load Pokémons and their details.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The current functions of this website lists Pokémon on their respective pages. Clicking on one will display their details including their types, abilities, and locations.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+If additional information is required, such as move descriptions or generally more information, a link to the Pokémon Database is provided.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### This project was built using Next.js, React, TypeScript, and Tailwind.

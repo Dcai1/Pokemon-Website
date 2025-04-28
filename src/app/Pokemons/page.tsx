@@ -77,9 +77,6 @@ export default function Pokemon() {
         if (!searchedPokemon) {return;}
 
         const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchedPokemon.toLowerCase()}`);
-        if (!result.ok) {
-            throw new Error("Pokémon not found. Did you spell it right?");
-        }
             const data = await result.json();
             setPokemonDetails([data]);
     };

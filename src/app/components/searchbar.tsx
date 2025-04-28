@@ -12,7 +12,7 @@ export default function SearchBar({ onClick, onChange }: SearchProps) {
                 type="text"
                 placeholder="Search Pokémon... (e.g. Pikachu)"
                 onChange={(e) => onChange(e.target.value)} 
-                className="border-4 rounded-xl text-xl sm:text-2xl font-bold p-3 m-6 w-full mx-auto text-center transition-all outline-none bg-gradient-to-b from-red-200 via-red-300 to-red-400 focus:scale-102 focus:border-6 focus:border-green-400"
+                className="border-4 rounded-xl text-xl sm:text-2xl font-bold p-3 m-6 w-full mx-auto text-center transition-all outline-none bg-gradient-to-b from-red-200 via-red-300 to-red-400 focus:scale-102 focus:border-6 focus:border-green-400 focus:shadow-2xl focus:shadow-green-400 duration-200"
                 />
 
                 

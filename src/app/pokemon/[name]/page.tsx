@@ -6,6 +6,14 @@ import Image from "next/image";
     secondary: list pokemon stats and moves
     */}
 
+{/* Type Definitions */}
+
+type PageProps = {
+    params: {
+        name: string;
+    };
+};
+
 type PokemonDetail = {
     id: number,
     name: string,
@@ -57,7 +65,11 @@ async function getPokemonLocations(name: string) {
     return pokemonLocations.json();
 }
 
-export default async function PokemonDetails({params}: {params: {name: string}}) {
+{/* Main Component */}
+{/* This component is responsible for displaying the details of a specific Pokémon. */}
+
+
+export default async function PokemonDetails({params}: PageProps) {
     const pokemon: PokemonDetail = await getPokemonDetails(params.name);
     const locations: PokemonLocations[] = await getPokemonLocations(params.name);
 

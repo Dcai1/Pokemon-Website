@@ -11,6 +11,7 @@ import { notFound } from "next/navigation";
 
 interface PageProps {
     params: { name: string };
+    searchParams?: { [key: string]: string | string[] | undefined };
 };
 
 type PokemonDetail = {

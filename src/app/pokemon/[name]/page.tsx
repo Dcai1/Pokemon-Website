@@ -9,7 +9,7 @@ import { notFound } from "next/navigation";
 
 {/* Type Definitions */}
 
-type PageProps = {
+interface PageProps {
     params: { name: string };
 };
 

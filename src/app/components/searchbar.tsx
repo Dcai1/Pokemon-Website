@@ -1,9 +1,10 @@
 type SearchProps = {
     onClick: () => void;
     onChange: (value: string) => void;
+    disabled?: boolean;
 }
 
-export default function SearchBar({ onClick, onChange }: SearchProps) {
+export default function SearchBar({ onClick, onChange, disabled }: SearchProps) {
     return (
         <div 
         className="items-center max-w-full justify-center overflow-hidden p-6 m-8 border shadow-xl shadow-red-400 rounded-4xl hover:scale-105 transition-all duration-1000 bg-gradient-to-br from-red-200 via-red-100 to-red-300">
@@ -25,7 +26,8 @@ export default function SearchBar({ onClick, onChange }: SearchProps) {
             </button>
 
             <button 
-            className="mt-3 mb-3 p-4 pl-6 pr-6 border-2 border-red-600 hover:border-green-400 shadow-xl shadow-red-500 hover:shadow-green-400 text-xl sm:text-2xl bg-red-500 text-white rounded-lg hover:border-3 hover:text-green-400 hover:scale-130 transition-all duration-300"
+            className={`mt-3 mb-3 p-4 pl-6 pr-6 border-2 border-red-600 shadow-xl shadow-red-500 text-xl sm:text-2xl bg-red-500 text-white rounded-lg transition-all duration-300 
+                ${disabled ? "opacity-60 cursor-not-allowed grayscale" : "hover:border-green-400 hover:shadow-green-400 hover:border-3 hover:text-green-400 hover:scale-130"}`}
             onClick={onClick}
             >
                 Search

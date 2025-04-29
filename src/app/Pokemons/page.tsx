@@ -27,7 +27,7 @@ export default function Pokemon() {
     const [loading, setLoading] = useState(true);
 
     const [offset, setOffset] = useState(0);
-    const [searchedPokemon, setSearchedPokemon] = useState<string | null>("");
+    const [searchedPokemon, setSearchedPokemon] = useState("");
 
     
 
@@ -85,11 +85,14 @@ export default function Pokemon() {
         const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchedPokemon.toLowerCase()}`);
         if (!result.ok) {
             setLoading(false);
+            setSearchedPokemon("");
             notFound();
         }
             const data = await result.json();
             setPokemonDetails([data]);
             setLoading(false)
+
+            setSearchedPokemon("");
     };
     
 
@@ -111,6 +114,7 @@ export default function Pokemon() {
             <SearchBar
             onClick={handleSearch}
             onChange={(value) => setSearchedPokemon(value)}
+            disabled={!searchedPokemon || searchedPokemon === ""}
             />
 
             <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"> 

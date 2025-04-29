@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import PageButton from "../components/page_button";
 import SearchBar from "../components/searchbar";
+import { notFound } from "next/navigation";
 
 type PokemonDetails = {
     id: number,
@@ -82,6 +83,10 @@ export default function Pokemon() {
 
         setLoading(true);
         const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchedPokemon.toLowerCase()}`);
+        if (!result.ok) {
+            setLoading(false);
+            notFound();
+        }
             const data = await result.json();
             setPokemonDetails([data]);
             setLoading(false)

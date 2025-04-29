@@ -72,9 +72,9 @@ async function getPokemonLocations(name: string): Promise<PokemonLocations[]> {
 {/* This component is responsible for displaying the details of a specific Pokémon. */}
 
 
-export default async function PokemonDetails({params}: {params: {name: string}}) {
-    const pokemon: PokemonDetail = await getPokemonDetails(params.name);
-    const locations: PokemonLocations[] = await getPokemonLocations(params.name);
+export default async function PokemonDetails({params}: {params: Promise<{name: string}>}) {
+    const pokemon: PokemonDetail = await getPokemonDetails((await params).name);
+    const locations: PokemonLocations[] = await getPokemonLocations((await params).name);
 
     {/* Format the results */}
     return (
@@ -86,7 +86,7 @@ export default async function PokemonDetails({params}: {params: {name: string}})
         <div>
             <Image 
             src={pokemon.sprites.other["official-artwork"].front_default}
-            alt={params.name}
+            alt={(await params).name}
             width={400}
             height={400}
             className="max-w-xs rounded-xl shadow-xl shadow-red-400 m-8"
@@ -109,19 +109,19 @@ export default async function PokemonDetails({params}: {params: {name: string}})
             {/* Small Sprite */}
                     <Image 
                         src={pokemon.sprites.other.showdown.front_default}
-                        alt={params.name} 
+                        alt={(await params).name} 
                         width={300}
                         height={300}
                         unoptimized
                         className="w-fit mx-auto p-3 bg-red-50 rounded-full shadow-lg shadow-white bg-gradient-to-br from-red-300 via-red-200 to-white transition-all hover:scale-120"
                     />
-                    {params.name}
+                    {(await params).name}
 
                 </h1>
 
             </div>
             {/* External Database Link */}
-                    <Link href={`https://pokemondb.net/pokedex/${params.name}`} 
+                    <Link href={`https://pokemondb.net/pokedex/${(await params).name}`} 
                     className="flex items-center justify-center p-6 underline hover:text-green-400 hover:scale-125 duration-300 transition-all w-fit mx-auto"
                     target="_blank">
                         View Pokémon Database Information</Link>
@@ -170,7 +170,7 @@ export default async function PokemonDetails({params}: {params: {name: string}})
                 <div 
                 className="flex flex-col hover:scale-101 duration-500 transition-all rounded-3xl bg-red-100 p-3 m-3 mb-6 shadow-lg shadow-red-400 bg-gradient-to-br from-red-400 to-green-200">
                     <h2 className="capitalize text-3xl sm:text-4xl lg:text-5xl m-6 font-bold underline underline-offset-8">
-                        {params.name}&apos;s Learnable Moves:</h2>
+                        {(await params).name}&apos;s Learnable Moves:</h2>
                     <ul>
                     {pokemon.moves.map((moves, index) => (
                         

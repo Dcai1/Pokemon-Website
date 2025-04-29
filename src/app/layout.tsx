@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pokémon",
+  title: "PokéWeb",
   description: "Just one of many databases hosting pokémon data.",
 };
 

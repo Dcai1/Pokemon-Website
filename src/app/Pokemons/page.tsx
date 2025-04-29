@@ -60,15 +60,19 @@ export default function Pokemon() {
 
     // Functions that handle page-changing events
     function handleNextPage() {
+        setLoading(true)
         setOffset(offset + 40);
+        setLoading(false)
     };
 
     function handlePrevPage() {
+        setLoading(true)
         if (offset > 0) {
             setOffset(offset - 40);
         } else {
             setOffset(0);
         }
+        setLoading(false)
 
     };
 
@@ -76,9 +80,11 @@ export default function Pokemon() {
     async function handleSearch() {
         if (!searchedPokemon) {return;}
 
+        setLoading(true);
         const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchedPokemon.toLowerCase()}`);
             const data = await result.json();
             setPokemonDetails([data]);
+            setLoading(false)
     };
     
 

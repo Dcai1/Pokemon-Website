@@ -9,11 +9,6 @@ import { notFound } from "next/navigation";
 
 {/* Type Definitions */}
 
-interface PageProps {
-    params: { name: string };
-    searchParams?: { [key: string]: string | string[] | undefined };
-};
-
 type PokemonDetail = {
     id: number,
     name: string,
@@ -77,7 +72,7 @@ async function getPokemonLocations(name: string): Promise<PokemonLocations[]> {
 {/* This component is responsible for displaying the details of a specific Pokémon. */}
 
 
-export default async function PokemonDetails({params}: PageProps) {
+export default async function PokemonDetails({params}: {params: {name: string}}) {
     const pokemon: PokemonDetail = await getPokemonDetails(params.name);
     const locations: PokemonLocations[] = await getPokemonLocations(params.name);
 

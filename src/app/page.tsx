@@ -26,7 +26,7 @@ export default function Home() {
         </p>
 
         <p className="text-xl sm:text-2xl font-semibold text-red-500 p-6 text-shadow-lg text-shadow-red-300">
-          The project is open source and the code is available on <Link href="/" target="_blank" className="underline hover:scale-150 hover:text-green-400 transition-all">my Github.</Link>
+          The project is open source and the code is available on <Link href="https://github.com/Dcai1/Pokemon-Website" target="_blank" className="underline hover:scale-150 hover:text-green-400 transition-all">my GitHub.</Link>
         </p>
       </div>
 

@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 
 import PageButton from "../components/page_button";
 import SearchBar from "../components/searchbar";
-import { notFound } from "next/navigation";
 
 type PokemonDetails = {
     id: number,
@@ -28,6 +27,7 @@ export default function Pokemon() {
 
     const [offset, setOffset] = useState(0);
     const [searchedPokemon, setSearchedPokemon] = useState("");
+    const [pokemonNotFound, setPokemonNotFound] = useState(false);
 
     
 
@@ -81,17 +81,14 @@ export default function Pokemon() {
     async function handleSearch() {
         if (!searchedPokemon) {return;}
 
-        setLoading(true);
         const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchedPokemon.toLowerCase()}`);
         if (!result.ok) {
-            setLoading(false);
             setSearchedPokemon("");
-            notFound();
+            setPokemonNotFound(true);
         }
             const data = await result.json();
             setPokemonDetails([data]);
-            setLoading(false)
-
+            setPokemonNotFound(false);
             setSearchedPokemon("");
     };
     
@@ -111,11 +108,27 @@ export default function Pokemon() {
         <main className="p-8 text-shadow-lg shadow-red-300 text-shadow-red-300 bg-gradient-to-b from-red-100 via-white to-red-300">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl text font-bold mb-6">Pokémon Menu</h1>
 
+            {/* Search Bar */}
             <SearchBar
             onClick={handleSearch}
             onChange={(value) => setSearchedPokemon(value)}
             disabled={!searchedPokemon || searchedPokemon === ""}
+            onKeyDown={(e) => { 
+                    if (e.key === "Enter") {
+                        handleSearch();
+                    }
+                }}
             />
+
+            {/* Error page for incorrect search result */}
+            {pokemonNotFound && (
+                <div className="mx-auto items-center justify-center transition-all flex flex-col border-4 rounded-3xl mb-6 shadow-xl shadow-red-600 bg-red-200">
+                    <h1 className="p-3 text-4xl sm:text-5xl font-bold text-center text-red-600">Pokémon Not Found</h1>
+                    <p className="p-6 text-center text-lg text-gray-700">Sorry, we couldn&apos;t find the Pokémon you were looking for.</p>
+                </div>
+            )}
+
+    {/* Render Pokémon list */}
 
             <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"> 
                 {pokemonDetails.map((pokemon) => {

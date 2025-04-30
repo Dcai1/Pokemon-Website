@@ -2,9 +2,10 @@ type SearchProps = {
     onClick: () => void;
     onChange: (value: string) => void;
     disabled?: boolean;
+    onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export default function SearchBar({ onClick, onChange, disabled }: SearchProps) {
+export default function SearchBar({ onClick, onChange, disabled, onKeyDown }: SearchProps) {
     return (
         <div 
         className="items-center max-w-full justify-center overflow-hidden p-6 m-8 border shadow-xl shadow-red-400 rounded-4xl hover:scale-105 transition-all duration-1000 bg-gradient-to-br from-red-200 via-red-100 to-red-300">
@@ -13,6 +14,7 @@ export default function SearchBar({ onClick, onChange, disabled }: SearchProps) 
                 type="text"
                 placeholder="Search Pokémon... (e.g. Pikachu)"
                 onChange={(e) => onChange(e.target.value)} 
+                onKeyDown={onKeyDown}
                 className="border-4 rounded-xl text-xl sm:text-2xl font-bold p-3 m-6 w-full mx-auto text-center transition-all outline-none bg-gradient-to-b from-red-200 via-red-300 to-red-400 focus:scale-102 focus:border-6 focus:border-green-400 focus:shadow-2xl focus:shadow-green-400 duration-200"
                 />
 

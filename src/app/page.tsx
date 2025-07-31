@@ -1,44 +1,59 @@
 import Link from "next/link";
 
 export default function Home() {
-
   return (
-    <main className="flex flex-col p-10 text-center text-shadow-lg text-shadow-white mx-auto my-auto bg-gradient-to-b from-red-100 via-white to-red-300 min-h-screen">
+    <main className="text-base bg-fixed bg-[url('/images/pokeball-background.png')] bg-size-[75px] bg-repeat-space bg-fixed bg-blend-overlay flex flex-col min-h-screen p-10 mx-auto my-auto text-center min-w-auto text-shadow-lg text-shadow-white bg-red-400">
+      <div className="items-center justify-center w-full max-w-5xl p-6 mx-auto my-auto shadow-lg min-w-auto bg-gradient-to-br from-red-300 via-red-400 to-red-300 rounded-3xl shadow-red-400">
+        <h1 className="m-3 mx-auto text-3xl font-bold transition-all duration-500 w-fit sm:text-4xl animate-pulse hover:scale-200 text-shadow-lg text-shadow-red-700">
+          Welcome!
+        </h1>
+        <div className="m-6 mx-auto transition-all duration-1000 shadow-lg sm:text-2xl hover:scale-105 bg-gradient-to-br from-red-300 via-red-200 to-red-300 rounded-xl shadow-white">
+          <p className="p-6 text-red-500 text-shadow-lg text-shadow-red-300">
+            A simple Pokémon site listing various Pokémons from many different
+            regions. Click on the Pokémon name to view more details.
+            <br />
+            Navigate to the Pokémon section to view a variety of Pokémon, or{" "}
+            <Link
+              href="/Pokemons"
+              className="underline transition-all hover:scale-150 hover:text-green-400"
+              rel="noopener noreferrer"
+            >
+              click here.
+            </Link>
+          </p>
 
-      <div
-      className="bg-gradient-to-br from-red-200 via-red-200 to-red-300 rounded-3xl p-6 shadow-lg shadow-red-400 max-w-full mx-auto my-auto items-center justify-center">
+          <p className="p-6 font-semibold text-red-500 text-shadow-lg text-shadow-red-300">
+            The Pokémon data is acquired from the{" "}
+            <Link
+              href="https://pokeapi.co/"
+              target="_blank"
+              className="underline transition-all hover:scale-150 hover:text-green-400"
+              rel="noopener noreferrer"
+            >
+              PokéAPI.
+            </Link>
+          </p>
 
-      <h1 className="w-fit mx-auto font-bold text-7xl mb-15 animate-pulse transition-all duration-500 my-6 hover:scale-200 text-shadow-lg text-shadow-red-700">
-        Welcome!</h1>
+          <p className="p-6 font-semibold text-red-500 sm:text-2xl text-shadow-lg text-shadow-red-300">
+            The project is open source and available on{" "}
+            <Link
+              href="https://github.com/Dcai1/Pokemon-Website"
+              target="_blank"
+              className="underline transition-all hover:scale-150 hover:text-green-400"
+              rel="noopener noreferrer"
+            >
+              my GitHub.
+            </Link>
+          </p>
+        </div>
 
-    <div className="mx-auto m-6 hover:scale-105 transition-all duration-1000 bg-gradient-to-br from-red-200 via-red-100 to-red-300 rounded-xl shadow-lg shadow-white">
-        <p className="text-2xl font-semibold text-red-500 p-6 text-shadow-lg text-shadow-red-300">
-          A simple Pokémon list listing various Pokémons from many different regions.
-          Click on the Pokémon name to view more details.<br />
-          Navigate to the Pokémon section to view a variety of Pokémon, or <Link href="/Pokemons" className="underline hover:scale-150 hover:text-green-400 transition-all">
-            click here.</Link>
-        </p>
-
-
-        <p className="text-xl sm:text-2xl font-semibold text-red-500 p-6 text-shadow-lg text-shadow-red-300">
-          The Pokémon data is acquired from the <Link href="https://pokeapi.co/" target="_blank" className="underline hover:scale-150 hover:text-green-400 transition-all">
-            PokéAPI.</Link>
-        </p>
-
-        <p className="text-xl sm:text-2xl font-semibold text-red-500 p-6 text-shadow-lg text-shadow-red-300">
-          The project is open source and the code is available on <Link href="https://github.com/Dcai1/Pokemon-Website" target="_blank" className="underline hover:scale-150 hover:text-green-400 transition-all">my GitHub.</Link>
-        </p>
+        <footer className="inline-block mt-6 text-center transition-all duration-500 rounded-full shadow-xl hover:scale-110 bg-gradient-to-br from-yellow-100 via-white to-yellow-300 shadow-yellow-300">
+          <p className="p-6 font-bold text-black sm:text-2xl text-shadow-lg text-shadow-yellow-400">
+            ⚠️ This project is not affiliated with Pokémon (company) or
+            Nintendo. ⚠️
+          </p>
+        </footer>
       </div>
-
-      <footer className="text-center mt-6 hover:scale-130 duration-500 transition-all bg-gradient-to-br from-yellow-100 via-white to-yellow-300 inline-block rounded-full shadow-xl shadow-yellow-300">
-        <p className="font-bold text-xl sm:text-2xl text-black p-6 text-shadow-lg text-shadow-yellow-400">
-        ⚠️ This project is not affiliated with Pokémon (company) or Nintendo. ⚠️
-        </p>
-      </footer>
-
-      </div>
-
     </main>
-    
   );
 }

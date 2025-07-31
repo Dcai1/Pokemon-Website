@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "PokéWeb",
-  description: "Just one of many databases hosting pokémon data.",
+  description: "Just one of many websites listing pokémon data.",
 };
 
 export default function RootLayout({
@@ -28,11 +28,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        
         <Navigation />
 
         {children}
-
       </body>
     </html>
   );

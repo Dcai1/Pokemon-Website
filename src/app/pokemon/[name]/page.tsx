@@ -2,217 +2,199 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-{/*
+{
+  /*
     main: list pokemon information and locations 
     secondary: list pokemon stats and moves
-    */}
+    */
+}
 
-{/* Type Definitions */}
+{
+  /* Type Definitions */
+}
 
 type PokemonDetail = {
-    id: number,
-    name: string,
-    abilities: {
-        ability: {
-            name: string;
-        }
-    }[];
-    moves: {
-        move: {
-            name: string;
-        }
-    }[];
-    stats: {
-        base_stat: number;
-        stat: {
-            name: string;
-            url: string;
-        };
-    }[];
-    sprites: {
-        other: {
-            "official-artwork": {
-                front_default: string;
-            };
-        showdown: {
-            front_default: string;
-            };
-        };
+  id: number;
+  name: string;
+  abilities: {
+    ability: {
+      name: string;
     };
-
+  }[];
+  moves: {
+    move: {
+      name: string;
+    };
+  }[];
+  stats: {
+    base_stat: number;
+    stat: {
+      name: string;
+      url: string;
+    };
+  }[];
+  sprites: {
+    other: {
+      "official-artwork": {
+        front_default: string;
+      };
+      showdown: {
+        front_default: string;
+      };
+    };
+  };
 };
 
 type PokemonLocations = {
-    location_area: {
-        name: string;
-
-    };
+  location_area: {
+    name: string;
+  };
 };
 
-{/* Fetch API data */}
+{
+  /* Fetch API data */
+}
 async function getPokemonDetails(name: string): Promise<PokemonDetail> {
-    const pokemonDetail = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-    if (!pokemonDetail.ok) {
-        notFound();
-    }
-    const data = await pokemonDetail.json();
-    return data;
+  const pokemonDetail = await fetch(
+    `https://pokeapi.co/api/v2/pokemon/${name}`
+  );
+  if (!pokemonDetail.ok) {
+    notFound();
+  }
+  const data = await pokemonDetail.json();
+  return data;
 }
 
 async function getPokemonLocations(name: string): Promise<PokemonLocations[]> {
-    const pokemonLocations = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}/encounters`)
-    if (!pokemonLocations.ok) {
-        notFound();
-    }
-    const data = await pokemonLocations.json();
-    return data;
+  const pokemonLocations = await fetch(
+    `https://pokeapi.co/api/v2/pokemon/${name}/encounters`
+  );
+  if (!pokemonLocations.ok) {
+    notFound();
+  }
+  const data = await pokemonLocations.json();
+  return data;
 }
 
-{/* Main Component */}
-{/* This component is responsible for displaying the details of a specific Pokémon. */}
+{
+  /* Main Component */
+}
+{
+  /* This component is responsible for displaying the details of a specific Pokémon. */
+}
 
+export default async function PokemonDetails({
+  params,
+}: {
+  params: Promise<{ name: string }>;
+}) {
+  const pokemon: PokemonDetail = await getPokemonDetails((await params).name);
+  const locations: PokemonLocations[] = await getPokemonLocations(
+    (
+      await params
+    ).name
+  );
 
-export default async function PokemonDetails({params}: {params: Promise<{name: string}>}) {
-    const pokemon: PokemonDetail = await getPokemonDetails((await params).name);
-    const locations: PokemonLocations[] = await getPokemonLocations((await params).name);
+  {
+    /* Format the results */
+  }
+  return (
+    <main className="bg-fixed flex flex-col items-center min-h-screen p-6 bg-[url('/images/pokeball-background.png')] bg-[length:75px] bg-repeat bg-blend-overlay bg-red-400 text-base sm:text-xl">
+      <Link
+        href="/Pokemons"
+        className="p-3 mb-4 transition-all duration-300 bg-red-300 border-4 rounded-xl hover:bg-green-300 hover:text-green-800 hover:underline"
+      >
+        ⇦ Back
+      </Link>
 
-    {/* Format the results */}
-    return (
-        <div className="min-h-screen bg-gradient-to-b from-red-100 via-white to-red-300 p-6">
-        <main className="max-w-6xl p-8 flex flex-col lg:flex-row gap-10 items-center justify-center mx-auto transition-all bg-gradient-to-b from-red-400 via-red-300 to-white rounded-xl shadow-xl shadow-red-300">
-
-
-        {/* Pokémon Artwork */}
-        <div>
-            <Image 
+      <div className="w-full max-w-3xl p-6 space-y-6 bg-red-300 border-4 shadow-2xl rounded-xl shadow-red-300">
+        <div className="text-center">
+          <Image
             src={pokemon.sprites.other["official-artwork"].front_default}
-            alt={(await params).name}
-            width={400}
-            height={400}
-            className="max-w-xs rounded-xl shadow-xl shadow-red-400 m-8"
-            priority
-            />
+            alt={pokemon.name}
+            width={300}
+            height={300}
+            className="mx-auto"
+          />
+          <h1 className="mt-2 text-3xl font-bold capitalize">{pokemon.name}</h1>
         </div>
 
+        <div className="grid gap-4 transition-all sm:grid-cols-2">
+          {/* Stats Box */}
+          <div className="p-4 transition-all duration-500 bg-red-200 border shadow-md rounded-xl hover:bg-red-100">
+            <h2 className="text-lg font-bold underline sm:text-xl underline-offset-4">
+              Stats
+            </h2>
+            <ul className="mt-2 space-y-1">
+              {pokemon.stats.map((stat, i) => (
+                <li key={i} className="font-medium uppercase">
+                  {stat.stat.name}: {stat.base_stat}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            {/* Main Pokémon Information */}
+          {/* Abilities */}
+          <details className="p-4 transition-all duration-500 bg-red-200 border shadow-md rounded-xl group hover:bg-red-100">
+            <summary className="flex items-center justify-between cursor-pointer">
+              <span className="font-bold underline transition-all underline-offset-5 hover:text-green-400">
+                Abilities
+              </span>
+              <span className="transition-transform transform group-open:rotate-90">
+                ▶
+              </span>
+            </summary>
+            <p className="mt-2 text-sm text-gray-700">
+              Click on an ability to learn more:
+            </p>
+            <ul className="mt-1 space-y-1 list-disc list-inside">
+              {pokemon.abilities.map((ability, index) => (
+                <li
+                  key={index}
+                  className="capitalize transition-all duration-300 hover:underline hover:text-green-400 w-fit hover:scale-105"
+                >
+                  <Link
+                    href={`https://pokemondb.net/ability/${ability.ability.name}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {ability.ability.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </details>
 
-
-            {/* Info Card */}
-            <div className="bg-red-200 p-10 overflow-hidden rounded-3xl shadow-lg shadow-red-500 font-bold max-w-full text-white text-shadow-lg text-shadow-red-900  transition-all">
-            
-            <div className="hover:scale-110 duration-500 transition-all">
-                <h1 
-                className="capitalize text-4xl sm:text-5xl lg:text-6xl font-bold mb-3 p-6 text-center bg-red-100 rounded-3xl shadow-2xl shadow-white bg-gradient-to-br from-red-100 to-red-300">
-
-
-            {/* Small Sprite */}
-                    <Image 
-                        src={pokemon.sprites.other.showdown.front_default}
-                        alt={(await params).name} 
-                        width={300}
-                        height={300}
-                        unoptimized
-                        className="w-fit mx-auto p-3 bg-red-50 rounded-full shadow-lg shadow-white bg-gradient-to-br from-red-300 via-red-200 to-white transition-all hover:scale-120"
-                    />
-                    {(await params).name}
-
-                </h1>
-
-            </div>
-            {/* External Database Link */}
-                    <Link href={`https://pokemondb.net/pokedex/${(await params).name}`} 
-                    className="flex items-center justify-center p-6 underline hover:text-green-400 hover:scale-125 duration-300 transition-all w-fit mx-auto"
-                    target="_blank">
-                        View Pokémon Database Information</Link>
-
-
-
-                {/* Abilities */}
-                <div
-                className="flex flex-col rounded-3xl hover:scale-110 duration-500 transition-all bg-red-100 p-3 m-3 mb-6 shadow-lg shadow-red-400 bg-gradient-to-br from-red-200 to-red-300">
-
-                    <h2 className="text-4xl sm:text-5xl lg:text-5xl m-6 font-bold underline underline-offset-8">
-                        Abilities: </h2>
-                
-                    <ul className="m-4">
-                        {pokemon.abilities.map((move, index) => (
-                        
-                            <li key={index} className="text-xl sm:text-2xl capitalize m-4 transition-all font-semibold">
-                                <Link 
-                                key={index}
-                                href={`https://pokemondb.net/ability/${move.ability.name}`}
-                                className="hover:text-green-400 hover:scale-130 transition-all inline-block"
-                                target="_blank">
-                                    {move.ability.name}
-                                    </Link>
-                                </li>
-                        ))}
-                    </ul>
-                </div>
-
-                {/* Base Stats */}
-
-                <div className="flex flex-col hover:scale-110 duration-500 transition-all rounded-3xl bg-red-100 p-3 m-3 mb-6 shadow-lg shadow-red-400 bg-gradient-to-br from-red-200 to-red-400">
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl m-6 mb-10 font-bold underline underline-offset-8">
-                        Base Stats:</h2>
-                    <ul>
-                        {pokemon.stats.map((stats, index) => (
-                            <li key={index} className="uppercase font-semibold m-3">
-                            {stats.stat.name}: {stats.base_stat}
-                            </li>
-                        ))}
-                    </ul>
-
-                </div>
-
-                {/* Moves */}
-                <div 
-                className="flex flex-col hover:scale-101 duration-500 transition-all rounded-3xl bg-red-100 p-3 m-3 mb-6 shadow-lg shadow-red-400 bg-gradient-to-br from-red-400 to-green-200">
-                    <h2 className="capitalize text-3xl sm:text-4xl lg:text-5xl m-6 font-bold underline underline-offset-8">
-                        {(await params).name}&apos;s Learnable Moves:</h2>
-                    <ul>
-                    {pokemon.moves.map((moves, index) => (
-                        
-
-                        <li key={index} className="text-xl sm:text-2xl capitalize m-4 font-semibold list-disc list-inside">
-                            <Link 
-                            key={index} 
-                            href={`https://pokemondb.net/move/${moves.move.name}`}
-                            className="hover:text-green-400 hover:scale-130 transition-all inline-block"
-                            target="_blank">
-                            {moves.move.name}
-                            </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-
-
-
-
-                {/* Encounter Locations */}   
-                <div 
-                className="flex flex-col hover:scale-110 duration-500 transition-all rounded-3xl bg-red-100 p-3 m-3 mb-6 shadow-lg shadow-red-400 bg-gradient-to-br from-red-400 to-green-200">
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl m-6 font-bold underline underline-offset-8">Encounter Locations:</h2>
-                    <ul>
-                        {locations.length > 0 ? (
-                            locations.map((location, index) => (
-                                <li key={index} className="capitalize list-decimal list-inside m-4">
-                                    {location.location_area.name.replace("-", " ")}
-                                </li>   
-                            ))
-                        ) : <li className=" text-red-600 text-shadow p-6 font-bold">No encounter locations available!</li>
-                        }
-                    </ul>
-                </div>
-
-
-            </div>
-        </main>
+          {/* Encounter Locations */}
+          <details
+            className={`p-4 transition-all duration-500 bg-red-200 border shadow-md rounded-xl group hover:bg-red-100 ${
+              locations.length === 0 ? "hidden" : ""
+            }`}
+          >
+            <summary className="flex items-center justify-between cursor-pointer">
+              <span className="font-bold underline underline-offset-4">
+                Encounter Locations
+              </span>
+              <span
+                className="transition-transform transform group-open:rotate-90"
+                aria-hidden="true"
+              >
+                ▶
+              </span>
+            </summary>
+            <ul className="mt-1 space-y-1 list-disc list-inside">
+              {locations.map((location, index) => (
+                <li
+                  key={index}
+                  className="capitalize duration-300 hover:underline hover:text-green-600"
+                >
+                  {location.location_area.name}
+                </li>
+              ))}
+            </ul>
+          </details>
         </div>
-    )
-
-
+      </div>
+    </main>
+  );
 }

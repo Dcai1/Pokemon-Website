@@ -14,8 +14,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PokéWeb",
-  description: "Just one of many websites listing pokémon data.",
+  title: {
+    template: "%s | Pokéweb",
+    default: "Pokéweb",
+  },
+  description:
+    "Pokéweb lists data from the Pokémon universe. All your Pokémon searching needs in one place.",
 };
 
 export default function RootLayout({

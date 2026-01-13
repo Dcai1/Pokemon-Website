@@ -21,7 +21,7 @@ type PokemonDetails = {
   }[];
 };
 
-export default function Pokemon() {
+export default function PokemonPage() {
   const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -91,8 +91,8 @@ export default function Pokemon() {
   // Loading screen handler
   if (loading) {
     return (
-      <div className="bg-blend-overlay text-center bg-repeat-space bg-[url('/images/pokeball-background.png')] bg-size-[75px] flex items-center min-h-screen min-w-screen mx-auto bg-red-400">
-        <p className="mx-auto text-3xl font-bold transition-all animate-bounce">
+      <div className="flex items-center min-h-screen mx-auto text-center min-w-screen">
+        <p className="mx-auto text-3xl font-bold text-white transition-all animate-bounce">
           Loading Pokémons... hang tight!
         </p>
       </div>
@@ -101,7 +101,7 @@ export default function Pokemon() {
 
   // Main page render
   return (
-    <main className="p-8 bg-blend-overlay bg-repeat-space bg-[url('/images/pokeball-background.png')] bg-size-[100px] text-shadow-lg shadow-red-300 text-shadow-red-300 bg-red-400">
+    <main className="p-8 text-shadow-lg shadow-red-300 text-shadow-red-300">
       {/* Search Bar */}
       <SearchBar
         onClick={handleSearch}

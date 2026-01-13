@@ -1,8 +1,15 @@
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Welcome to Pokéweb",
+  description:
+    "A Pokémon site fetching and listing various pokémon from every region. Click on pokémon names to view more information.",
+};
 
 export default function Home() {
   return (
-    <main className="text-base bg-fixed bg-[url('/images/pokeball-background.png')] bg-size-[75px] bg-repeat-space bg-fixed bg-blend-overlay flex flex-col min-h-screen p-10 mx-auto my-auto text-center min-w-auto text-shadow-lg text-shadow-white bg-red-400">
+    <main className="flex flex-col min-h-screen p-10 mx-auto my-auto text-base text-center min-w-auto text-shadow-lg text-shadow-white">
       <div className="items-center justify-center w-full max-w-5xl p-6 mx-auto my-auto shadow-lg min-w-auto bg-gradient-to-br from-red-300 via-red-400 to-red-300 rounded-3xl shadow-red-400">
         <h1 className="m-3 mx-auto text-3xl font-bold transition-all duration-500 w-fit sm:text-4xl animate-pulse hover:scale-200 text-shadow-lg text-shadow-red-700">
           Welcome!

@@ -18,13 +18,13 @@ export const Navigation = () => {
       </Link>
 
       <Link
-        href="/Pokemons"
+        href="/pokemon"
         className={`m-4 hover:underline transition-all duration-1000 text-amber-50 ${
-          pathName === "/Pokemons" ? "font-bold text-red-400 italic" : ""
+          pathName === "/pokemon" ? "font-bold text-red-400 italic" : ""
         }`}
         rel="noopener noreferrer"
       >
-        Pokémons
+        Pokémon
       </Link>
 
       <Link

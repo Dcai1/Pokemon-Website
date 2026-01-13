@@ -99,7 +99,7 @@ export default async function PokemonDetails({
     /* Format the results */
   }
   return (
-    <main className="bg-fixed flex flex-col items-center min-h-screen p-6 bg-[url('/images/pokeball-background.png')] bg-[length:75px] bg-repeat bg-blend-overlay bg-red-400 text-base sm:text-xl">
+    <main className="flex flex-col items-center min-h-screen p-6 text-base sm:text-xl">
       <Link
         href="/Pokemons"
         className="p-3 mb-4 transition-all duration-300 bg-red-300 border-4 rounded-xl hover:bg-green-300 hover:text-green-800 hover:underline"

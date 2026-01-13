@@ -3,6 +3,7 @@
 :root {
   --background: #ff5e5e;
   --foreground: #ff4343;
+  --pokeball-bg: url("/images/pokeball-background.webp");
 }
 
 @theme inline {
@@ -12,15 +13,13 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ff5e5e;
-    --foreground: #ff4343;
-  }
-}
-
 body {
-  background: var(--background);
+  background: rgb(255, 94, 94, 0.95) url("/images/pokeball-background.webp")
+    space;
+  background-size: 75px;
+  background-blend-mode: overlay;
+  -webkit-backdrop-filter: blur(0.1em);
+  backdrop-filter: blur(0.1em);
   color: var(--foreground);
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif,
     Helvetica, sans-serif;

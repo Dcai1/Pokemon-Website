@@ -56,7 +56,7 @@ type PokemonLocations = {
 }
 async function getPokemonDetails(name: string): Promise<PokemonDetail> {
   const pokemonDetail = await fetch(
-    `https://pokeapi.co/api/v2/pokemon/${name}`
+    `https://pokeapi.co/api/v2/pokemon/${name}`,
   );
   if (!pokemonDetail.ok) {
     notFound();
@@ -67,7 +67,7 @@ async function getPokemonDetails(name: string): Promise<PokemonDetail> {
 
 async function getPokemonLocations(name: string): Promise<PokemonLocations[]> {
   const pokemonLocations = await fetch(
-    `https://pokeapi.co/api/v2/pokemon/${name}/encounters`
+    `https://pokeapi.co/api/v2/pokemon/${name}/encounters`,
   );
   if (!pokemonLocations.ok) {
     notFound();
@@ -90,9 +90,7 @@ export default async function PokemonDetails({
 }) {
   const pokemon: PokemonDetail = await getPokemonDetails((await params).name);
   const locations: PokemonLocations[] = await getPokemonLocations(
-    (
-      await params
-    ).name
+    (await params).name,
   );
 
   {
@@ -101,7 +99,7 @@ export default async function PokemonDetails({
   return (
     <main className="flex flex-col items-center min-h-screen p-6 text-base sm:text-xl">
       <Link
-        href="/Pokemons"
+        href="/pokemon"
         className="p-3 mb-4 transition-all duration-300 bg-red-300 border-4 rounded-xl hover:bg-green-300 hover:text-green-800 hover:underline"
       >
         ⇦ Back

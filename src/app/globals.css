@@ -1,26 +1,204 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ff5e5e;
-  --foreground: #ff4343;
+  --color-accent: #e97287;
+  --color-accent-muted: #fff6f7;
+  --color-bg: #fff8f9;
+  --color-text: #0f172a;
   --pokeball-bg: url("/images/pokeball-background.webp");
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+html {
+  --scroll-behavior: smooth !important;
+  scroll-behavior: smooth !important;
+}
+
 body {
-  background: rgb(255, 94, 94, 0.95) url("/images/pokeball-background.webp")
-    space;
-  background-size: 75px;
+  background-color: var(--color-bg);
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(255, 249, 249, 1),
+      rgba(233, 114, 135, 0.06),
+      rgba(255, 240, 240, 1)
+    ),
+    var(--pokeball-bg);
+  background-size: 180px;
+  background-repeat: repeat;
+  background-position: center;
   background-blend-mode: overlay;
-  -webkit-backdrop-filter: blur(0.1em);
-  backdrop-filter: blur(0.1em);
-  color: var(--foreground);
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif,
-    Helvetica, sans-serif;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  color: var(--color-text);
+  font-family:
+    "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif, Helvetica,
+    sans-serif;
+}
+
+@media (max-width: 640px) {
+  body {
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(255, 249, 249, 1),
+        rgba(233, 114, 135, 0.05),
+        rgba(255, 240, 240, 1)
+      ),
+      var(--pokeball-bg);
+    background-size: 140px;
+    background-position: center top;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* Glass card helper for components */
+.glass {
+  background: rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Motion utilities (calm, subtle) */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeUp 560ms cubic-bezier(0.22, 0.9, 0.3, 1) both;
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in-up {
+    animation: none !important;
+  }
+}
+
+/* Honor reduced motion for stat animations */
+@media (prefers-reduced-motion: reduce) {
+  .stat-fill {
+    animation: none !important;
+    width: var(--w) !important;
+  }
+}
+
+/* Focus-visible styles for keyboard users */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(231, 123, 123, 0.18);
+  border-radius: 8px;
+}
+
+.gradient-bg {
+  --tw-gradient-position: to bottom left in oklab;
+  background-image: linear-gradient(var(--tw-gradient-stops));
+  --tw-gradient-from: transparent;
+  --tw-gradient-stops: var(
+    --tw-gradient-via-stops,
+    var(--tw-gradient-position),
+    var(--tw-gradient-from) var(--tw-gradient-from-position),
+    var(--tw-gradient-to) var(--tw-gradient-to-position)
+  );
+  --tw-gradient-to: color-mix(
+    in oklab,
+    var(--color-rose-200) /* oklch(89.2% 0.058 10.001) */ 80%,
+    transparent
+  );
+  --tw-gradient-stops: var(
+    --tw-gradient-via-stops,
+    var(--tw-gradient-position),
+    var(--tw-gradient-from) var(--tw-gradient-from-position),
+    var(--tw-gradient-to) var(--tw-gradient-to-position)
+  );
+}
+
+/* Loading Icon */
+
+.dots-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.dot {
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+  border-radius: 10px;
+  background-color: rgb(255, 153, 153);
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.dot:last-child {
+  margin-right: 0;
+}
+
+.dot:nth-child(1) {
+  animation-delay: -0.3s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: -0.1s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.1s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    background-color: rgb(255, 112, 112);
+    box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: rgb(255, 153, 153);
+    box-shadow: 0 0 0 10px rgba(178, 212, 252, 0);
+  }
+
+  100% {
+    transform: scale(0.8);
+    background-color: rgb(255, 186, 186);
+    box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
+  }
+}
+
+/* Stat bar grow animation using CSS variable --w (set inline) */
+.stat-fill {
+  width: 0;
+  animation: statGrow 700ms cubic-bezier(0.22, 0.9, 0.3, 1) both;
+  will-change: width;
+}
+
+@keyframes statGrow {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--w);
+  }
 }

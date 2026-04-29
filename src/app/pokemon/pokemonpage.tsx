@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import PageButton from "../components/page_button";
 import SearchBar from "../components/searchbar";
+import Footer from "../components/Footer";
 
 type PokemonDetails = {
   id: number;
@@ -34,7 +35,7 @@ export default function PokemonPage() {
   useEffect(() => {
     async function fetchPokemon() {
       const data = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=40`
+        `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=40`,
       );
       const result = await data.json();
 
@@ -42,7 +43,7 @@ export default function PokemonPage() {
         result.results.map(async (pokemon: { name: string; url: string }) => {
           const res = await fetch(pokemon.url);
           return await res.json();
-        })
+        }),
       );
 
       setPokemonDetails(details);
@@ -76,7 +77,7 @@ export default function PokemonPage() {
     }
 
     const result = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${searchedPokemon.toLowerCase()}`
+      `https://pokeapi.co/api/v2/pokemon/${searchedPokemon.toLowerCase()}`,
     );
     if (!result.ok) {
       setSearchedPokemon("");
@@ -101,7 +102,7 @@ export default function PokemonPage() {
 
   // Main page render
   return (
-    <main className="p-8 text-shadow-lg shadow-red-300 text-shadow-red-300">
+    <main className="p-8 pb-24 text-shadow-lg shadow-red-300 text-shadow-red-300 gradient-bg">
       {/* Search Bar */}
       <SearchBar
         onClick={handleSearch}
@@ -116,12 +117,13 @@ export default function PokemonPage() {
 
       {/* Error page for incorrect search result */}
       {pokemonNotFound && (
-        <div className="flex flex-col items-center justify-center mx-auto mb-6 transition-all bg-red-200 border-4 shadow-xl rounded-3xl shadow-red-600">
-          <h1 className="p-3 text-2xl font-bold text-center text-red-600 sm:text-4xl">
+        <div className="flex flex-col items-center justify-center mx-auto mb-6 border-2 shadow-xl bg-gradient-to-br from-rose-100 via-red-300 to-red-100 rounded-3xl">
+          <h1 className="p-3 text-2xl font-bold text-center text-rose-500 sm:text-4xl">
             Pokémon Not Found
           </h1>
-          <p className="p-3 text-center text-gray-700 sm:text-lg">
+          <p className="p-3 text-sm text-center text-black lg:text-lg">
             Sorry, we couldn&apos;t find the Pokémon you were looking for.
+            Double check your spelling and try again.
           </p>
         </div>
       )}
@@ -133,8 +135,9 @@ export default function PokemonPage() {
           return (
             <li
               key={pokemon.id}
-              className="p-4 text-center transition-all duration-300 border rounded-lg shadow-md hover:scale-110 bg-gradient-to-br from-red-300 via-red-200 to-red-300 shadow-red-400"
+              className="p-4 text-center transition-all duration-300 rounded-lg shadow-sm shadow-rose-300 hover:shadow-xl hover:-translate-y-2 hover:shadow-rose-200 bg-gradient-to-br from-white-50 via-rose-100 to-white-50"
             >
+              {/* Image */}
               <div className="relative mx-auto w-fit group">
                 <Image
                   src={pokemon.sprites.front_default}
@@ -144,7 +147,7 @@ export default function PokemonPage() {
                   unoptimized
                   className="mx-auto transition-opacity duration-300 group-hover:opacity-0"
                 />
-
+                {/* Shiny Image */}
                 <Image
                   src={pokemon.sprites.front_shiny}
                   alt={pokemon.name}
@@ -155,6 +158,7 @@ export default function PokemonPage() {
                 />
               </div>
 
+              {/* Pokemon Name */}
               <h2 className="mt-2 text-lg capitalize sm:text-xl">
                 <Link
                   href={`/pokemon/${pokemon.name}`}
@@ -165,6 +169,7 @@ export default function PokemonPage() {
                 </Link>
               </h2>
 
+              {/* Pokemon Types */}
               <p className="italic text-gray-500 text-md">
                 {pokemon.types.map((t) => t.type.name).join(", ")}
               </p>
@@ -183,11 +188,7 @@ export default function PokemonPage() {
         <PageButton onClick={handleNextPage} label="Next Page" />
       </div>
 
-      <footer className="my-8 transition-all duration-500 border rounded-full shadow-lg bg-gradient-to-br from-red-200 via-red-300 to-red-500 hover:scale-101">
-        <p className="p-6 m-auto text-xs text-red-600 sm:text-lg text-shadow-lg text-shadow-white">
-          Note: Hover over a Pokémon&apos;s Image to view their Shiny variant!
-        </p>
-      </footer>
+      <Footer />
     </main>
   );
 }

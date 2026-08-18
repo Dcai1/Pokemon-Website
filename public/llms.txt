@@ -1,0 +1,34 @@
+# Pokéweb
+
+> A Pokémon reference and discovery site that fetches data from the PokéAPI and presents searchable Pokémon details, encounter information, and species metadata.
+
+Site: https://pokeweb-site.vercel.app/
+
+## Overview
+
+- Browse the full Pokémon directory at https://pokeweb-site.vercel.app/pokemon
+- Learn about the project and author at https://pokeweb-site.vercel.app/about
+- View individual Pokémon detail pages such as:
+  - https://pokeweb-site.vercel.app/pokemon/bulbasaur
+  - https://pokeweb-site.vercel.app/pokemon/charmander
+  - https://pokeweb-site.vercel.app/pokemon/squirtle
+  - https://pokeweb-site.vercel.app/pokemon/pikachu
+  - https://pokeweb-site.vercel.app/pokemon/mewtwo
+
+## Content summary
+
+The site is a fan-made Pokémon encyclopedia and lookup tool. It surfaces Pokémon names, types, abilities, and encounter info using live data from the PokéAPI. The homepage promotes quick search and region browsing, while the Pokémon page enables browsing and lookup.
+
+## Important routes
+
+- Home: https://pokeweb-site.vercel.app/
+- Pokémon index: https://pokeweb-site.vercel.app/pokemon
+- About: https://pokeweb-site.vercel.app/about
+
+## Data source
+
+PokéAPI is used as the primary data provider for Pokémon records and encounter data.
+
+## Notes
+
+This project is not affiliated with Pokémon or Nintendo.
